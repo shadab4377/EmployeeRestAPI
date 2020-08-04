@@ -29,14 +29,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public void updateEmployee(Employee employee) {
-		// TODO Auto-generated method stub
-		
+		employeeDAO.updateEmployee(employee);
 	}
 
 	@Override
 	public void deleteEmployee(Integer empId) {
-		// TODO Auto-generated method stub
-		
+		employeeDAO.deleteEmployee(empId);
 	}
 
 	@Override

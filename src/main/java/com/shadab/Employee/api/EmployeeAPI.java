@@ -7,7 +7,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,4 +75,29 @@ public class EmployeeAPI {
 		}
 	}
 	
+	@DeleteMapping(value="deleteEmployee/{empId}")
+	public ResponseEntity<String> deleteEmployee(@PathVariable("empId") Integer empId ){
+		String message = "Employee deleted successfully with employee id: "+empId;
+		try{
+			employeeService.deleteEmployee(empId);
+			return new ResponseEntity<String>(message,HttpStatus.OK);
+		}
+		catch (Exception e){
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,environment.getProperty(e.getMessage()));
+		}
+	}
+
+	
+	@PatchMapping(value="updateEmployee/{empId}")
+	public ResponseEntity<String> updateEmployee(@PathVariable("empId") Integer empId, @RequestBody Employee employee ){
+		String message = "Employee updated successfully with employee id: "+empId;
+		try{
+			employeeService.updateEmployee(employee);
+			return new ResponseEntity<String>(message,HttpStatus.OK);
+		}
+		catch(Exception e){
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,environment.getProperty(e.getMessage()));
+		}
 }
+}
+

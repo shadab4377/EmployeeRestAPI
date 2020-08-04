@@ -1,31 +1,53 @@
 package com.shadab.Employee.entity;
 
-import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Table(name="Employee")
 public class EmployeeEntity {
 	
 	@Id
+	@Column(name="EMP_ID")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer empId;
+	
+	@Column(name="NAME")
 	private String name;
+	
+	@Column(name="DEPARTMENT")
 	private String department;
-	private LocalDate dob;
+	
+	@Column(name="DOB")
+	private String dob;
+	
+	@Column(name="ADDRESS")
 	private String address;
+	
+	@Column(name="POSITION")
 	private String position;
+	
+	@Column(name="REPORTSTO")
 	private String reportsTo;
+	
+	@Column(name="TELEPHONE")
 	private Long telephone;
+	
+	@Column(name="GENDER")
 	private String gender;
+	
+	@Column(name="SALARY")
 	private Long salary;
+	
+	@Column(name="DATIME")
 	private Date datime;
-	
-	
+
 	public Date getDatime() {
 		return datime;
 	}
@@ -80,10 +102,10 @@ public class EmployeeEntity {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	public LocalDate getDob() {
+	public String getDob() {
 		return dob;
 	}
-	public void setDob(LocalDate dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 	public String getAddress() {

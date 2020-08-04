@@ -22,12 +22,11 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 	@Override
 	public Employee getEmployee(Integer empId) {
-		EmployeeEntity employeeEntity = new EmployeeEntity();
-		employeeEntity = entityManager.find(EmployeeEntity.class,empId);
+		EmployeeEntity employeeEntity = entityManager.find(EmployeeEntity.class,empId);
 		
 		Employee employee = new Employee();
 		
-		if(employeeEntity!=null){
+		if(employeeEntity != null){
 		
 		employee.setEmpId(employeeEntity.getEmpId());
 		employee.setName(employeeEntity.getName());
@@ -48,12 +47,11 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	public Integer addEmployee(Employee employee) {
 		
 		EmployeeEntity employeeEntity = new EmployeeEntity();
-		employeeEntity.setEmpId(employee.getEmpId());
 		employeeEntity.setName(employee.getName());
 		employeeEntity.setDepartment(employee.getDepartment());
 		employeeEntity.setAddress(employee.getAddress());
 		employeeEntity.setDob(employee.getDob());
-		employeeEntity.setPosition(employeeEntity.getPosition());
+		employeeEntity.setPosition(employee.getPosition());
 		employeeEntity.setGender(employee.getGender());
 		employeeEntity.setReportsTo(employee.getReportsTo());
 		employeeEntity.setSalary(employee.getSalary());
@@ -61,7 +59,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		employeeEntity.setDatime(new Date());
 		
 		entityManager.persist(employeeEntity);
-		return employee.getEmpId();
+		return employeeEntity.getEmpId();
 	}
 	
 	@Override
@@ -75,7 +73,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		else{
 			List<Employee> employeeList = new ArrayList<>();
 			for(EmployeeEntity employeeEntity:employeeEntityList){
-				Employee employee = null;
+				Employee employee = new Employee();
 				employee.setEmpId(employeeEntity.getEmpId());
 				employee.setName(employeeEntity.getName());
 				employee.setDepartment(employeeEntity.getDepartment());
@@ -95,14 +93,24 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 	@Override
 	public void updateEmployee(Employee employee) {
-		// TODO Auto-generated method stub
+		Query query = entityManager.createQuery("UPDATE EmployeeEntity e SET e.name = ?1, e.address = ?2, e.telephone = ?3, e.reportsTo = ?4, e.department = ?5, e.position = ?6, e.salary = ?7 WHERE e.empId = ?8");
+		query.setParameter(1,employee.getName());
+		query.setParameter(2,employee.getAddress());
+		query.setParameter(3,employee.getTelephone());
+		query.setParameter(4,employee.getReportsTo());
+		query.setParameter(5,employee.getDepartment());
+		query.setParameter(6,employee.getPosition());
+		query.setParameter(7,employee.getSalary());
+		query.setParameter(8,employee.getEmpId());
 		
+		query.executeUpdate();
 	}
 
 	@Override
 	public void deleteEmployee(Integer empId) {
-		// TODO Auto-generated method stub
-		
+		EmployeeEntity employeeEntity = entityManager.find(EmployeeEntity.class, empId);
+		if(employeeEntity != null)
+			entityManager.remove(employeeEntity);
 	}
 	
 }

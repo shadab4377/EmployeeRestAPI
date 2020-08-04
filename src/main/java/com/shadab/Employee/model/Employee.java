@@ -7,21 +7,14 @@ public class Employee {
 	private Integer empId;
 	private String name;
 	private String department;
-	private LocalDate dob;
+	private String dob;
 	private String address;
 	private String position;
 	private String reportsTo;
 	private Long telephone;
 	private String gender;
 	private Long salary;
-	private Date datime;
 	
-	public Date getDatime() {
-		return datime;
-	}
-	public void setDatime(Date datime) {
-		this.datime = datime;
-	}
 	public String getPosition() {
 		return position;
 	}
@@ -70,10 +63,10 @@ public class Employee {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	public LocalDate getDob() {
+	public String getDob() {
 		return dob;
 	}
-	public void setDob(LocalDate dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 	public String getAddress() {
